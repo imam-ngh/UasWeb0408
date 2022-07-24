@@ -1,0 +1,46 @@
+{%- extends "client/base.html" -%}
+{%- block content -%}
+<div class="container-fluid">
+    <div class="row">
+        <div class="card p-3">
+            <div class="card-body">
+                <h5 class="card-title"> {{ card_title }} </h5>
+                <form method="post">
+                    <div class="form-group">
+                        <label for=""> Name </label>
+                        <input type="text" name="name" placeholder="Name" class="form-control" required value="{% if user %} {{ user.name }} {% endif %}">
+                    </div>
+                    <div class="form-group">
+                        <label for=""> Username </label>
+                        <input type="text" name="username" placeholder="Username" class="form-control" required value="{% if user %} {{ user.username }} {% endif %}">
+                    </div>
+                    <div class="form-group">
+                        <label for=""> Password </label>
+                        <input type="password" name="password" placeholder="Password" class="form-control" {% if not user %} required {% endif %}>
+                    </div>
+                    <div class="form-group">
+                        <label for=""> Permission </label>
+                        <div>
+                            <input type="checkbox" name="permission" value="read" {% if user %} {% if user.read_key %} checked {% endif %} {% endif %}> Read Key &nbsp; 
+                            <input type="checkbox" name="permission" value="write" {% if user %} {% if user.write_key %} checked {% endif %} {% endif %}> Write Key
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" style="float: right"> {% if user %} Edit {% else %} Tambah {% endif %} </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%- endblock -%}
+{%- block css -%}
+<link href="/static/dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+{%- endblock -%}
+
+{%- block js -%}
+<script src="/static/dashboard/extra-libs/DataTables/datatables.min.js"></script>
+<script>
+    $("#datatable").DataTable();
+</script>
+{%- endblock -%}

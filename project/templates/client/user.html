@@ -1,0 +1,54 @@
+{%- extends "client/base.html" -%}
+{%- block content -%}
+<div class="container-fluid">
+    <div class="row">
+        <div>
+            <a href="/users/create" class="btn btn-primary mb-2"> Tambah </a>
+        </div>
+        <div class="card p-3">
+            <div class="card-body">
+                <h5 class="card-title"> Table Users </h5>
+                <table class="table table-stripped table-hover" id="datatable">
+                    <thead>
+                        <tr>
+                            <td> # </td>
+                            <td> Nama </td>
+                            <td> Username </td>
+                            <td> Read Key </td>
+                            <td> Write Key </td>
+                            <td> Is Active </td>
+                            <td> Action </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td> {{ loop.index }} </td>
+                                <td> {{ user.name }} </td>
+                                <td> {{ user.username }} </td>
+                                <td> {{ user.read_key }} </td>
+                                <td> {{ user.write_key }} </td>
+                                <td> {{ user.is_active }} </td>
+                                <td>
+                                    <a href="/users/edit/{{user.id}}" class="btn btn-warning"> <i class="mdi mdi-account-edit"></i> </a>
+                                    <a href="/users/delete/{{user.id}}" class="btn btn-danger"> <i class="mdi mdi-account-minus text-white"></i> </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{%- endblock -%}
+{%- block css -%}
+<link href="/static/dashboard/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+{%- endblock -%}
+
+{%- block js -%}
+<script src="/static/dashboard/extra-libs/DataTables/datatables.min.js"></script>
+<script>
+    $("#datatable").DataTable();
+</script>
+{%- endblock -%}
